@@ -1,7 +1,7 @@
 "use client";
 
 const AddToCart = () => {
-  return <button onClick={() => console.log("adsf")}>click me</button>;
+  return <button className="btn btn-primary">ADD TO CART</button>;
 };
 
 export default AddToCart;
