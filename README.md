@@ -26,3 +26,5 @@
 7. only put **truly global styles** in global.css. For component specific styles use module.css.
 
 8. **CSS Modules** are scoped to the component/page to avoid styles conflicts. card-component is not a valid class name in css modules. It should be cardComponent, because all the class names are imported as a JS object.
+
+9.With app router we can co-locate our project files components & pages, as only page.tsx is accessible to the client.
