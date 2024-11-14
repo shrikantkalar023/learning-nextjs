@@ -32,3 +32,9 @@
 10. <Link> component is used for client side navigation. It doesn't do a full page refresh.
 
 11. We can use **query string params** to pass data/state between pages on server side.
+
+12. <Link>
+
+- only downloads the content of the target page
+- Prefetches the links in the viewport.
+- Caches pages on the client only for one session & clears on full reload.
