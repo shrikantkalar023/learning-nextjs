@@ -50,3 +50,7 @@
 17. To handle errors in the root layout file, we need to use **global-error.tsx** file. error.tsx file should be client side rendered.
 
 18. Error & Reset (retry) function is automatically passed to the error.tsx file.
+
+19. In a given folder (url segment), we can either have a page file or a route file. Page file for markup & route file for api routes.
+
+20. Even if we aren't using request:NextRequest, we need it so that nextjs doesn't cache the api response
