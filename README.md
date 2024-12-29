@@ -42,3 +42,11 @@
 13. Suspense is used to show a fallback UI while the component is loading. Suspense **streams** the data to the client, request - response cycle is not terminated.
 
 14. To show loading UI with suspense for each page, we can either add suspense in layout file or add loading.tsx file.
+
+15. Handle not found pages with not-found.tsx files.
+
+16. Handle unexpected errors with **error.tsx** files. We can have error.tsx file at multiple levels for custom error handling.
+
+17. To handle errors in the root layout file, we need to use **global-error.tsx** file. error.tsx file should be client side rendered.
+
+18. Error & Reset (retry) function is automatically passed to the error.tsx file.
