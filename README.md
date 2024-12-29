@@ -38,3 +38,7 @@
 - only downloads the content of the target page
 - Prefetches the links in the viewport.
 - Caches pages on the client only for one session & clears on full reload.
+
+13. Suspense is used to show a fallback UI while the component is loading. Suspense **streams** the data to the client, request - response cycle is not terminated.
+
+14. To show loading UI with suspense for each page, we can either add suspense in layout file or add loading.tsx file.
