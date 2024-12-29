@@ -28,6 +28,20 @@ export const PUT = async (
 
   return NextResponse.json({
     success: true,
-    user: updatedUser, 
+    user: updatedUser,
+  });
+};
+
+export const DELETE = (
+  request: NextRequest,
+  { params }: { params: { id: number } }
+) => {
+  if (params.id > 10) {
+    return NextResponse.json({ error: "User not found" }, { status: 404 });
+  }
+
+  return NextResponse.json({
+    success: true,
+    user: { id: params.id, name: "John " + params.id },
   });
 };
