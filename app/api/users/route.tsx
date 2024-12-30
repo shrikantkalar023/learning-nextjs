@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import userSchema from "./schema";
 
 const users = [
   { id: 1, name: "John Doe" },
@@ -11,13 +12,17 @@ export const GET = (request: NextRequest) => {
 };
 
 export const POST = async (request: NextRequest) => {
-  const { name } = await request.json();
+  const body = await request.json();
+  const validatedBody = userSchema.safeParse(body);
 
-  if (!name) {
-    return NextResponse.json({ error: "Name is required" }, { status: 400 });
+  if (!validatedBody.success) {
+    return NextResponse.json(
+      { error: validatedBody.error.errors },
+      { status: 400 }
+    );
   }
 
-  const newUser = { name, id: users.length + 1 };
+  const newUser = { name: validatedBody.data.name, id: users.length + 1 };
   users.push(newUser);
   return NextResponse.json({ success: true, user: newUser }, { status: 201 });
 };
