@@ -1,3 +1,4 @@
+import prisma from "@/prisma/client";
 import { NextResponse, type NextRequest } from "next/server";
 import userSchema from "./schema";
 
@@ -7,7 +8,8 @@ const users = [
 ];
 
 // NOTE: even though we aren't using request:NextRequest, we need it so that nextjs doesn't cache the response
-export const GET = (request: NextRequest) => {
+export const GET = async (request: NextRequest) => {
+  const users = await prisma.user.findMany();
   return NextResponse.json(users);
 };
 
