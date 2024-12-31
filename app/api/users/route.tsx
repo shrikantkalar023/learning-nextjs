@@ -2,11 +2,6 @@ import prisma from "@/prisma/client";
 import { NextResponse, type NextRequest } from "next/server";
 import userSchema from "./schema";
 
-const users = [
-  { id: 1, name: "John Doe" },
-  { id: 2, name: "Jane Doe" },
-];
-
 // NOTE: even though we aren't using request:NextRequest, we need it so that nextjs doesn't cache the response
 export const GET = async (request: NextRequest) => {
   const users = await prisma.user.findMany();
@@ -24,7 +19,19 @@ export const POST = async (request: NextRequest) => {
     );
   }
 
-  const newUser = { name: validatedBody.data.name, id: users.length + 1 };
-  users.push(newUser);
-  return NextResponse.json({ success: true, user: newUser }, { status: 201 });
+  const user = await prisma.user.findUnique({
+    where: {
+      email: validatedBody.data.email,
+    },
+  });
+
+  if (user) {
+    return NextResponse.json({ error: "User already exists" }, { status: 400 });
+  }
+
+  const newUser = await prisma.user.create({
+    data: validatedBody.data,
+  });
+
+  return NextResponse.json(newUser, { status: 201 });
 };
