@@ -20,7 +20,7 @@ export const GET = async (
 
 export const PUT = async (
   request: NextRequest,
-  { params }: { params: { id: number } }
+  { params }: { params: { id: string } }
 ) => {
   const body = await request.json();
   const validatedBody = userSchema.safeParse(body);
@@ -32,16 +32,24 @@ export const PUT = async (
     );
   }
 
-  if (params.id > 10) {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: Number.parseInt(params.id),
+    },
+  });
+
+  if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
 
-  const updatedUser = { id: params.id, name };
-
-  return NextResponse.json({
-    success: true,
-    user: updatedUser,
+  const newUser = await prisma.user.update({
+    where: {
+      id: Number.parseInt(params.id),
+    },
+    data: validatedBody.data,
   });
+
+  return NextResponse.json(newUser);
 };
 
 export const DELETE = (
